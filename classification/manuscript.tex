@@ -1,0 +1,147 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,booktabs,array}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\hypersetup{pdftitle={The shortest obstructions to simultaneous cyclic equalizability of three binary words}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\w}[1]{\texttt{#1}}
+\title{The shortest obstructions to simultaneous cyclic equalizability of three binary words}
+\author{Aditya Balaji}
+\date{Research manuscript, 24 November 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+Among the twenty unordered triples of distinct weight-two binary words of length four, exactly four cannot be made conjugate by common insertions. They form one symmetry class. Every shorter equal-weight triple is already conjugate, and each of the sixteen positive cases admits a common completion of length at most six. A signed identity for two commuting translations gives the obstruction at every completion length. We also determine precisely when this identity integrates to a binary word at fixed positions and offsets. When one offset generates the cycle, the missing condition is alternation of signs in a single cyclic traversal. Lean checks the twenty-case classification and the underlying binary integration theorem.
+\end{abstract}
+
+\section{Common insertions and the shortest obstruction}
+For three words $u,v,w$ of length $m$, choose binary strings $s_0,\ldots,s_m$. Replace each word $z$ by $s_0z_1s_1\cdots z_ms_m$. Call the triple \emph{equalizable} if the three resulting words are rotations of one another. The inserted strings may be empty, and their lengths have no prescribed upper bound. Equal weight is necessary. Shinagawa and Nuida proved sufficiency for two binary words and asked the three-word question \cite{sn}. Fici posed it at WORDS 2025 \cite{words}. The Parikh-vector theorem for two words over general alphabets \cite{tpr} and the zero-insertion theorem for a pair of binary words \cite{t} provide further two-row results.
+
+\begin{theorem}\label{bad}
+The words $\w{0110},\w{0101},\w{1001}$ cannot be simultaneously equalized.
+\end{theorem}
+\begin{proof}
+Suppose their completions are $U,V,W$ of length $N$. On $G=\Z/N\Z$ use $(T_af)(x)=f(x-a)$ and let $e_x$ be the unit mass at $x$. Write $V=T_aU$ and $W=T_bU$. The rows differ at marked positions, so in particular $a\ne0$. Write $0\le p<q<r<s<N$ for the four original positions. At all other positions the inserted bits cancel. Subtracting in $\Z$, we obtain
+\[
+D=V-U=e_s-e_r,\qquad F=W-V=e_p-e_q.
+\]
+Since translations commute, $(T_b-T_a)D=(T_a-I)F$. Expanding gives the multiset equality
+\begin{equation}\label{match}
+ \{p,q+a,r+a,s+b\}=\{p+a,q,r+b,s+a\}.
+\end{equation}
+The entry $q+a$ differs from $p+a,s+a,q$, hence must match $r+b$. Cancel this pair. Now $r+a$ must match $q$, because it differs from $p+a$ and $s+a$. Cancel again. Finally $p$ must match $s+a$, since $p\ne p+a$. Therefore $r-q\equiv s-p\pmod N$. This contradicts $0<r-q<s-p<N$. All cancellations remove one occurrence, so the argument also covers collisions on a single side of \eqref{match}.
+\end{proof}
+
+\section{Classification at length four}
+Row permutation and bit complementation preserve every witness, since they act on the completed array. A common cyclic change of origin in the original words also preserves existence and witness length. Cut the completed array just before the marked column chosen as the new first column. Reading around the circle gives the required original order, with only common letters between consecutive marks. The inverse cut proves equivalence.
+
+Call a weight-two word an \emph{edge} if its ones are adjacent on the four-cycle, and a \emph{diagonal} otherwise. There are four edges and two diagonals.
+\begin{theorem}\label{class}
+An equal-weight triple of length four fails exactly when it consists of a diagonal and two opposite edges. Equivalently its unordered rows form one of
+\[
+\begin{array}{ccc}
+\w{0011}&\w{0101}&\w{1100}\\
+\w{0011}&\w{1010}&\w{1100}\\
+\w{0101}&\w{0110}&\w{1001}\\
+\w{0110}&\w{1001}&\w{1010}.
+\end{array}
+\]
+No equal-weight triple of smaller length fails. Among the sixteen positive distinct weight-two triples, four have minimum completion length four, four have minimum five, and eight have minimum six.
+\end{theorem}
+\begin{proof}
+At lengths at most three each weight class is a single rotation orbit. The same is true at length four for weights other than two. Repeated rows reduce to the two-word theorem. For three distinct weight-two rows, count the diagonals. With zero or two diagonals there are four choices each, transitive under common rotation. With one diagonal, the two edges are neighbors (eight choices) or opposite (four). Rotation is transitive on edge pairs of each kind. Complement followed by a half-turn fixes each edge and exchanges the two diagonals. This proves transitivity within each row of the table.
+
+\begin{center}\small
+\begin{tabular}{@{}lrl l l@{}}
+\toprule
+Type & Size & Input rows & Completed rows & Marks\\
+\midrule
+Three edges & 4 & \w{0011,0110,1001} & unchanged & 0123\\
+Two diagonals & 4 & \w{0011,0101,1010} & \w{00101,01001,10100} & 0124\\
+Neighbor edges & 8 & \w{0011,0101,0110} & \w{000101,010001,010100} & 0135\\
+Opposite edges & 4 & \w{0110,0101,1001} & impossible by Theorem~\ref{bad} & \\
+\bottomrule
+\end{tabular}
+\end{center}
+Marks are zero-based positions. In each positive row they recover the input. Every unmarked column is constant. The second and third completed words are left rotations of the first by $(1,3)$, $(3,2)$, and $(4,2)$ positions, respectively. The three certificates and Theorem~\ref{bad} exhaust all $\binom63=20$ possibilities.
+
+To check minimality of the positive lengths, a mixture of edge and diagonal words already excludes length four. For the neighbor-edge representative, call the four marked positions $p,q,r,s$ in order. The first column is all zero and the three one-sets are the three pairs from $q,r,s$. At length five exactly one symbol has been inserted. If it is zero, the three pairs must all have the same undirected cyclic distance; the pairs at either possible distance on a five-cycle form a five-cycle, which contains no triangle. If it is one, the zero-sets are the three pairs from $p$ to $q,r,s$ respectively. At fixed distance from $p$ there are only two positions. Both possibilities fail. Since the symmetries preserve length, this proves the sharp distribution.
+\end{proof}
+
+\begin{corollary}\label{core}
+For equal-weight triples of arbitrary length with at most four nonconstant columns, delete every constant column. Equalization fails exactly when the remaining rows form one of the four triples in Theorem~\ref{class}. If $k$ columns were deleted, every positive instance in this class has a witness of length at most $6(4k+1)$, except that an entirely constant-column array can simply be retained.
+\end{corollary}
+\begin{proof}
+Deleting common columns from the list of marks in a witness makes them insertions. Conversely, let a nonempty reduced instance have a witness of length $L$. Replace every letter $z$ of every completed row uniformly by $BzB$, where $B=(01)^k$. Rotation offsets scale by $4k+1$. Mark each original nonconstant letter at the center of its block. Every deleted run before a marked letter fits as a subsequence of its prefix $B$, and a terminal run fits in the last marked suffix. All other unmarked positions are common, including the centers of old inserted blocks. This proves the reverse implication with the stated factor and gives a quantitative version of the insertion invariance of \cite[Theorem 3.1]{sn}. For a reduced instance of length four with a repeated weight-two row, any two distinct rows extend to a positive distinct triple: of four possible third rows at most two occur with that pair in the forbidden list. The table therefore gives $L\le6$ in this case as well. All other positive cases follow from the preceding proof.
+\end{proof}
+
+\section{When do the translation equations suffice?}
+Fix a length $N$, ordered marks $p_i$, and offsets $a,b$. Set $D(p_i)=v_i-u_i$ and $E(p_i)=w_i-u_i$, with $D=E=0$ elsewhere. A completion based on $U$ must satisfy
+\begin{equation}\label{grad}
+ (T_a-I)U=D,\qquad (T_b-I)U=E,\qquad (T_b-I)D=(T_a-I)E.
+\end{equation}
+We call the last equation the translation identity. For a nonconstant marked column, any binary solution to the first two equations automatically has $U(p_i)=u_i$: at least one difference is $1$ or $-1$, fixing the base bit. A constant original column instead prescribes a bit explicitly. The next result is stated for reduced input so that all marks are nonconstant.
+
+\begin{theorem}[Integration on each orbit]\label{int}
+Write $H=\langle a,b\rangle\subseteq G$. The two difference equations in \eqref{grad} have a common \emph{integer}-valued solution if and only if the translation identity holds and the sums of $D$ and of $E$ vanish on each coset of $H$. Such a solution is unique up to an additive constant on each coset. For reduced binary input, the geometry gives a completion if and only if these tests pass and the solution has range of width at most one on every coset.
+\end{theorem}
+\begin{proof}
+Necessity follows by telescoping on each coset. For sufficiency, label a step from $x$ to $x-a$ by $D(x)$ and from $x$ to $x-b$ by $E(x)$; reversing a step negates its label. The translation identity says precisely that the sum around each elementary square is zero. Consequently a path sum is unchanged by interchanging adjacent steps of different types, with either orientation: the two routes bound a translate of an elementary square, possibly traversed backwards. Opposite steps of the same type cancel, and steps of the same type and orientation commute trivially.
+
+Fix a closed sequence of steps on a coset $C$, and call its sum from $x$ by the name $L(x)$. Starting with one generator step and then following the closed sequence has the same sum as following the sequence and then taking the generator step, by the interchange just proved. The initial and final generator steps have identical labels, since the sequence is closed. Thus $L(x)=L(x-a)=L(x-b)$ throughout $C$. On averaging $L$ over $C$, each positive step contributes an average of $D$ or $E$, and a reverse step the negative of such an average. All are zero. The constant $L$ therefore vanishes. This works also for loops winding around the finite group, which elementary squares alone need not bound.
+
+Integrate the labels from a chosen base point along any path to each vertex. Vanishing of all closed sums gives a well-defined integer potential; any two primitives differ by a constant on the connected coset. Its minimum on each coset can be translated to zero. The resulting values are binary precisely when each width is at most one. At a nonconstant mark the differences force the correct original bits. If constant columns are retained at prescribed positions, the allowable additive constants must also give their prescribed base bits.
+\end{proof}
+
+\begin{theorem}[Generating offset]\label{gen}
+Suppose the input is reduced and has equal weights, and $\gcd(a,N)=1$. For the prescribed geometry, a completion exists if and only if the translation identity holds and the nonzero signs of $D$, read cyclically in steps of $-a$, alternate. An empty list satisfies the alternation condition. In particular, when $u,v$ differ at just two positions, the translation identity alone suffices at every such geometry.
+\end{theorem}
+\begin{proof}
+Write $x_t=-ta$ and choose $0\le k<N$ with $b=ka$ in $G$. Put $d_t=D(x_t)$ and $e_t=E(x_t)$. Both sequences have sum zero over one turn. Set $S_0=0$ and $S_{t+1}=S_t+d_t$. Then $S$ is periodic, and any potential for the first difference is $S$ plus a constant. Its range has width at most one exactly when the nonzero signs alternate cyclically: the successive nonzero steps of a two-level walk must alternate; conversely alternating unit steps visit at most two consecutive levels. Shift by $-\min S$ to obtain binary $U(x_t)$.
+
+The translation identity reads $e_{t+1}-e_t=d_{t+k}-d_t$. Hence
+$e_t-(S_{t+k}-S_t)$ is constant in $t$. Its sum over a period is zero, so the constant vanishes. This gives the second difference and the preceding bit-pinning observation recovers all original columns. Conversely every binary completion gives both the identity and such a two-level walk. Two mismatches in equal-weight rows have opposite signs, so their cyclic list always alternates.
+\end{proof}
+
+The range condition is essential, even with a generating step. Take $N=8$, $a=-1$, $b=-2$ and mark every site, with rows $\w{00001111},\w{01011010},\w{11110000}$. The integer profile $(0,0,1,1,2,2,1,1)$ has precisely the differences $D,E$ at these offsets. The translation identity follows, yet the profile has width two. Thus this geometry has no binary realization. This example decides only the specified offsets and marks.
+
+\begin{theorem}[Arbitrary prescribed geometry]\label{geom}
+For any number of binary rows with prescribed offsets $a_0=0,a_1,\ldots,a_{l-1}$, construct an undirected graph on $G$. For each unmarked $x$, join $x$ to $x-a_j$ for every $j$. For each marked $p_i$, prescribe at $p_i-a_j$ the bit in row $j$, column $i$. A completion with these marks and offsets exists exactly when no connected component has both a zero prescription and a one prescription.
+\end{theorem}
+\begin{proof}
+Each edge expresses equality of two bits of the base word, and the prescriptions are necessary. Conversely assign each component its prescribed bit, choosing zero if it has none. The resulting word has the required values at every mark in each rotation. At every unmarked site all the rotations take the same value by the edges. Reading those common letters in their gaps gives the insertion strings.
+\end{proof}
+This criterion constructs a witness in $O(lN)$ time by graph traversal. It characterizes unrestricted equalizability existentially over the geometry. A decision procedure on the input alone still needs a way to control that existential search.
+
+\section{A finite bound for the translation test}
+The translation identity has a bounded-denominator property even when the possible lengths of actual binary witnesses are unknown.
+\begin{theorem}\label{den}
+For three distinct reduced words of length $m$, feasibility of the signed translation identity on the real unit circle, with strictly ordered marks and distinct offsets $0,a,b$, is equivalent to feasibility on a cyclic group of some order $N\le2^{m+3}$.
+\end{theorem}
+\begin{proof}
+Expand $T_bD-T_aE+E-D=0$ as equality of two multisets of atoms. Each nonconstant binary column supplies one atom on each side. An atom has coordinate $p_i+t$ with $t\in\{0,a,b\}$. Choose a matching from a real solution. For each matched pair fix its integer difference in $\{-1,0,1\}$ before reduction modulo one. This gives affine equations in $p_1,\ldots,p_m,a,b$ with integer right-hand sides.
+
+Fix $p_1=0$ by translation and fix the observed order of $a,b$. Introduce $\epsilon$ and impose gaps of at least $\epsilon$ in each of the chains $0=p_1<p_2<\cdots<p_m<1$ and $0<\min(a,b)<\max(a,b)<1$. Include $0\le\epsilon\le1$. The resulting bounded closed polytope has a point with $\epsilon>0$. Maximize $\epsilon$ and take an optimal vertex. In $d=m+3$ variables, choose $d$ independent tight rows there. Each matching row has Euclidean norm at most two: it is a difference of two position variables and a difference of two offset variables, with cancellations allowed. Each gap or coordinate row also has norm at most two. By Hadamard's inequality the absolute determinant is an integer $N$ between one and $2^d$. Cramer's rule gives coordinates with common denominator $N$; strictness survives since the optimum is positive. Scaling gives a cyclic group of order $N$ satisfying every match. Conversely any discrete solution scales to the real circle.
+\end{proof}
+The denominator bound concerns only the final identity in \eqref{grad}. Transferring the binary range test or the component test to an arbitrary vertex of this polytope would require another argument. In particular the fixed-geometry example after Theorem~\ref{gen} does not decide whether existential feasibility of the translation identity alone implies unrestricted equalizability.
+
+\section{Verification, provenance and related work}
+The companion Lean~4 file uses integer representatives for circular positions. Its predicate \texttt{Realizes4} selects four ordered sites in an arbitrarily long binary array, uses one common binary filler elsewhere, and requires rotations between all completed rows in that same array. These data are equivalent to common gap strings by reading between successive marks. \texttt{Cyclic.classify} checks the full equivalence in Theorem~\ref{class} for the twenty distinct weight-two inputs. Each negative case reduces to \texttt{Cyclic.noCompletion}; each positive case supplies a concrete witness checked by kernel reduction. The formal classification does not depend on the human symmetry count or an external solver. \texttt{Cyclic.components} checks the graph-labeling equivalence used in Theorem~\ref{geom}. \texttt{Cyclic.primitiveScan} checks binary reconstruction from a width-one prefix sum and commuting increments in generator coordinates, in both directions. The orbit-coordinate change, sign-alternation interpretation, common-column lifting bound, the sharp lower bounds on positive witness lengths, the arbitrary-orbit integration proof of Theorem~\ref{int}, and Theorem~\ref{den} are proved in the text. Lean~4.33.0 reports only \texttt{propext}, \texttt{Classical.choice}, and \texttt{Quot.sound} for the audited declarations.
+
+The Python suite separately checks all twenty signed SMT instances with Z3 and checks the sixteen positive certificates by enumeration of common embeddings. Solver timeouts and unknown answers are inconclusive. The SMT instances were checked with Z3~5.1.0. The AI system Astra~6.2 derived the initial signed obstruction and prepared the extension, formalization, code, and manuscript. The author chose the problem and initial direction, wrote the research prompts, ran computational cross-checks, and audited the results. No external mathematician is represented as having reviewed the proofs.
+
+\paragraph{Priority.}
+A search on 24 November 2026 covered the primary papers, exact terminology for three-word equalizability, and OpenAlex forward citations of \cite{sn,tpr,t}. A closely related preprint \cite{nsn}, posted by 23 November, gives an unconditional four-row obstruction. In Section~2.2 and Lemma~2, especially equations (5)--(6), the authors encode shifts as monomials and eliminate a common word by commuting two differences over $\mathbb F_2$. This is direct methodological precedent. Their Lemma~2 uses three disjoint two-site differences from a common base, hence four rows. Our proof keeps integer signs and uses the circular order of four marks to exclude a triple. We did not locate the twenty-case theorem or the generator criterion in the sources inspected. This search establishes neither exhaustive priority nor expert review.
+
+\begin{thebibliography}{9}
+\bibitem{sn} K. Shinagawa and K. Nuida, \emph{Cyclic Equalizability of Words and Its Application to Card-Based Cryptography}, FCT 2025, LNCS 16106, 406--419. \href{https://arxiv.org/abs/2507.04916}{arXiv:2507.04916}.
+\bibitem{words} G. Fici, Cyclic equalizability of words, \emph{WORDS 2025 open problems}, final slide. \href{https://words2025.loria.fr/files/2025/07/webpage-open-problems.pdf}{Conference problem collection}.
+\bibitem{tpr} S. Thongjarast, S. Pasiphol and S. Ruangwises, \emph{Cyclic Equalizability Characterized by Parikh Vectors}, revision of 19 October 2026. \href{https://arxiv.org/abs/2604.19504}{arXiv:2604.19504}.
+\bibitem{t} S. Thongjarast, \emph{0-Cyclic Equalizability of Binary Words Characterized by Hamming Weight}, 2026. \href{https://arxiv.org/abs/2607.18452}{arXiv:2607.18452}.
+\bibitem{nsn} K. Nuida, K. Shinagawa and Y. Numata, \emph{Impossibility Results for Single-Cut Full-Open Card-Based Protocols with Any Number of Cards}, 2026. \href{https://eprint.iacr.org/2026/2960}{IACR ePrint 2026/2960}.
+\end{thebibliography}
+\end{document}

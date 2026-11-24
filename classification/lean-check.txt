@@ -1,0 +1,5 @@
+'Cyclic.noCompletion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Cyclic.classify' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Cyclic.components' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Cyclic.primitiveScan' depends on axioms: [propext, Classical.choice, Quot.sound]
+replaying Cyclic

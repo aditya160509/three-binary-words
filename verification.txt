@@ -1,0 +1,5 @@
+Z3 version 5.1.0 - 64 bit
+Unbounded necessary condition: unsat
+Direct witness through length 12 : None
+Unbounded necessary condition: sat
+Direct witness through length 10 : ('01001', '01010', '00101')

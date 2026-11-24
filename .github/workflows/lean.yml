@@ -6,6 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
-      - run: ~/.elan/bin/lean --version
-      - run: time ~/.elan/bin/lean Cyclic.lean
-      - run: grep -c sorry Cyclic.lean || true
+      - run: cd classification && ~/.elan/bin/lean --version
+      - run: cd classification && time ~/.elan/bin/lean Cyclic.lean
+      - run: grep -c sorry classification/Cyclic.lean || true
