@@ -1,6 +1,6 @@
 # Three binary words that cannot be cyclically equalized
 
-[![lean](https://github.com/aditya160509/three-binary-words/actions/workflows/lean.yml/badge.svg)](https://github.com/aditya160509/three-binary-words/actions/workflows/lean.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24504262.svg)](https://doi.org/10.5281/zenodo.24504262) [![lean](https://github.com/aditya160509/three-binary-words/actions/workflows/lean.yml/badge.svg)](https://github.com/aditya160509/three-binary-words/actions/workflows/lean.yml)
 
 **Can three binary words with the same number of 1s always be made into rotations of one another by inserting the same letters at the same positions?** No. The words `0110`, `0101`, `1001` can never be equalized, at any completion length.
 
