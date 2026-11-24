@@ -1,0 +1,10 @@
+{
+  "title": "Three binary words that cannot be cyclically equalized: the shortest obstructions to simultaneous cyclic equalizability",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "description": "The binary words 0110, 0101, 1001 have equal Hamming weight but cannot be made cyclically equal by common insertions of any length, answering negatively the three-word question of Shinagawa and Nuida (FCT 2025) and Fici (WORDS 2025). Includes a classification of all twenty length-four weight-two triples (exactly four fail, one symmetry class), minimality of length four, criteria at prescribed geometry, and a denominator bound. Formalized in Lean 4.33.0. Developed with the AI system Astra 6.2 under the author's direction; see the manuscript for the contribution statement. Not yet peer reviewed.",
+  "creators": [{"name": "Balaji, Aditya"}],
+  "keywords": ["combinatorics on words", "cyclic equalizability", "binary words", "card-based cryptography", "Lean 4"],
+  "license": "cc-by-4.0",
+  "language": "eng"
+}
