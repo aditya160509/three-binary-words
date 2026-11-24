@@ -24,4 +24,6 @@ for f in smt/*.smt2; do echo "$f $(z3 $f)"; done
 
 ## Authorship and AI disclosure
 
-Aditya Balaji chose the problem and direction, wrote the [research prompts](prompts.md), ran the computational cross-checks and audited the results. The proofs, formalization, code and manuscript were produced with substantial help from the AI system Astra 6.2. The results have not yet been peer reviewed; novelty is not established.
+**Aditya Balaji** identified the problem and confirmed it was still open, designed the research protocol (unbounded impossibility proof, independent cross-checks, Lean formalization), proposed the extension to all twenty length-four triples and conjectured that the four failures form one symmetry class, set the verification requirements, and audited and re-verified the results, including compiling the Lean proof. His [research prompts](prompts.md) are included.
+
+The written proofs, formalization, code and manuscript text were produced by the AI system **Astra 6.2** under that direction. The results have not yet been peer reviewed, and novelty is not established.
